@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchandise Store</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+    header {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #333;
+      padding: 15px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      font-size: 1.1em;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: #555;
+    }
+    .container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .container h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #444;
+    }
+    .product {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: scale(1.02);
+    }
+    .product img {
+      border-radius: 10px;
+      margin-right: 20px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .product div {
+      flex: 1;
+    }
+    .product h3 {
+      margin: 0 0 10px;
+      font-size: 1.5em;
+      color: #333;
+    }
+    .product p {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      color: #666;
+    }
+    .product button {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    .product button:hover {
+      background: #333;
+    }
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      padding: 20px;
+      color: #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    .cart h3 {
+      margin: 0 0 10px;
+      font-size: 1.5em;
+      color: #444;
+    }
+    .cart ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .cart ul li {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      color: #666;
+    }
+    .cart ul li:last-child {
+      margin-bottom: 0;
+    }
+    .cart p {
+      font-size: 1.2em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Merchandise Store</h1>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#products">Products</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="container" id="home">
+  <h2>Welcome to the Merchandise Store!</h2>
+  <p>Browse through our exclusive collection of merchandise.</p>
+</div>
+
+<div class="container" id="products">
+  <h2>Products</h2>
+  <div class="product">
+    <img src="Screenshot 2025-04-06 8.46.24 PM.png" alt="Product 1">
+    <div>
+      <h3>Product 1</h3>
+      <p>$10.00</p>
+      <button onclick="addToCart('Product 1', 10.00)">Add to Cart</button>
+    </div>
+  </div>
+  <div class="product">
+    <img src="Screenshot 2025-04-06 8.45.23 PM.png" alt="Product 2">
+    <div>
+      <h3>Product 2</h3>
+      <p>$15.00</p>
+      <button onclick="addToCart('Product 2', 15.00)">Add to Cart</button>
+    </div>
+  </div>
+  <!-- Add more products as needed -->
+</div>
+
+<div class="container" id="contact">
+  <h2>Contact</h2>
+  <p>If you have any questions or would like to get in touch, please email us at <a href="mailto:merchstore@example.com">merchstore@example.com</a>.</p>
+</div>
+
+<div class="cart" id="cart">
+  <h3>Shopping Cart</h3>
+  <ul id="cart-items">
+    <!-- Cart items will be added here -->
+  </ul>
+  <p>Total: $<span id="cart-total">0.00</span></p>
+</div>
+
+<footer>
+  <p>&copy; 2025 Merchandise Store</p>
+</footer>
+
+<script>
+  // JavaScript code to handle cart functionality
+  let cart = [];
+  let cartTotal = 0;
+
+  function addToCart(product, price) {
+    cart.push({ product, price });
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    cartItems.innerHTML = '';
+    cartTotal = 0;
+
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.product} - $${item.price.toFixed(2)}`;
+      cartItems.appendChild(li);
+      cartTotal += item.price;
+    });
+
+    document.getElementById('cart-total').textContent = cartTotal.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
